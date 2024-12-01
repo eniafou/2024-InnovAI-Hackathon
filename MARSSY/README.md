@@ -1,5 +1,6 @@
 # EduPulse
 
+![logo]("./assets/logo.jpeg")
 > An AI-powered educational platform that transforms individual student assessments into actionable insights for personalized learning and school-wide improvement.
 
 ---
