@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MathJax, MathJaxContext } from 'better-react-mathjax';
 import { useAppContext } from "./AppContext";
 import { useNavigate } from "react-router-dom"; // Assuming react-router-dom is being used for navigation
+import {config} from "../types/LatexConfig";
 
 const CustomQCMApp = () => {
     const { customQcmData } = useAppContext(); // Assuming `setCustomizedCourse` is part of AppContext
@@ -36,10 +37,6 @@ const CustomQCMApp = () => {
         navigate("/"); // Redirect to the new page
     };
 
-    const config = {
-        loader: { load: ['input/tex', 'output/chtml'] },
-        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-    };
 
     return (
         <MathJaxContext config={config}>

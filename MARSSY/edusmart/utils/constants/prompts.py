@@ -23,7 +23,8 @@ Les questions doivent couvrir différents types de raisonnement : résolution 
 de formules.
 La réponse correcte doit être clairement identifiable parmi les options.
 Ne fournissez aucune explication, uniquement les structures de dictionnaire des questions, telles que définies ci-dessus.
-
+N'utilisez pas de macros dans le code latex que vous fournirez.
+Assurez-vous que les questions que vous générez sont des questions QCM.
 
 Générez {} questions en fonction des spécifications fournies ci-dessous:
 
@@ -60,6 +61,9 @@ Les types de raisonnement doivent varier \
 l’application de formules.
 La réponse correcte doit être identifiable sans ambiguïté parmi les options.
 Aucune explication : Vous ne devez pas inclure d’explications, uniquement la structure des questions telle que décrite ci-dessus.
+N'utilisez pas de macros dans le code latex que vous fournirez.
+Assurez-vous que les questions que vous générez sont des questions QCM.
+
 Générez {} questions en fonction des spécifications fournies ci-dessous:
 
 Niveau scolaire : {}
@@ -78,29 +82,30 @@ PROMPT_COURS_GENERATION = """
 Vous êtes un créateur de contenu éducatif chargé de concevoir un cours personnalisé basé sur les résultats d’un quiz d’un étudiant.
 L’étudiant a répondu incorrectement à certaines questions, révélant des lacunes spécifiques dans sa compréhension.
 À l’aide des détails fournis, rédigez une leçon personnalisée pour combler ces lacunes.
-Incluez uniquement le contenu du cours dans votre réponse (le titre est déjà fourni).
+Incluez uniquement le contenu du cours dans votre réponse, commencer directement par l'introduction.
 Structurez le contenu selon le format suivant :
 
 Structure de la réponse :
 
-Introduction
+## Introduction
 Présentez brièvement le sujet et son importance.
 
-Rappel des définitions
+## Rappel des définitions
 Récapitulez les concepts clés nécessaires pour comprendre la leçon.
 
-Correction des erreurs
+## Correction des erreurs
 Identifiez les erreurs spécifiques et expliquez la bonne réponse de manière claire et détaillée, en utilisant des exemples si nécessaire.
 
-Remarques et conseils
+## Remarques et conseils
 Fournissez des astuces ou des recommandations pour éviter ces erreurs à l’avenir.
 
-Exercice d’entraînement
+## Exercice d’entraînement
 Proposez une ou plusieurs questions ou exercices pratiques avec les réponses.
 
 Format de sortie attendu :
 Votre réponse doit être retournée en JSON avec le champ suivant :
 {{
+  "title": "Le titre de la leçon",
   "content": "Le contenu de la leçon en format Markdown, incluant les expressions mathématiques en LaTeX."
 }}
 
@@ -109,8 +114,11 @@ Directives supplémentaires :
 Adaptez la leçon au niveau scolaire et à la matière de l’étudiant.
 Concentrez-vous uniquement sur les sujets liés aux questions incorrectes.
 Rédigez dans un langage simple, clair, et adapté au niveau indiqué.
-Les expressions mathématiques doivent être correctement formatées en LaTeX. \\( \\) ou $ pour inline math et \\[ \\] ou $$ pour block math.
+Les expressions mathématiques doivent être correctement formatées en LaTeX.
 Respectez la hiérarchie indiquée dans le format, sans introduire de titres plus élevés que ceux mentionnés.
+N'utilisez pas de macros dans le code latex que vous fournirez.
+
+
 Détails fournis :
 
 Niveau scolaire : {}
@@ -163,9 +171,9 @@ Vous êtes une intelligence artificielle spécialisée dans la création de ques
 Votre tâche est de générer des questions basées sur les réponses incorrectes, le niveau scolaire, et des exercices similaires aux questions fournies. 
 Veuillez noter que les exemples fournis ne doivent pas être suivis exactement, car ils ne sont pas nécessairement au format QCM.
 
-### Consignes de génération :
-1. **Niveau de difficulté** : Toutes les questions doivent correspondre au niveau de difficulté spécifié (Facile, Moyen, ou Difficile).
-2. **Structure des questions** : Les questions, les options et la réponse correcte doivent être formatées en JSON comme suit :
+Consignes de génération :
+1. Niveau de difficulté : Toutes les questions doivent correspondre au niveau de difficulté spécifié (Facile, Moyen, ou Difficile).
+2. Structure des questions : Les questions, les options et la réponse correcte doivent être formatées en JSON comme suit :
 {{
     "data": [
         {{
@@ -180,15 +188,18 @@ Veuillez noter que les exemples fournis ne doivent pas être suivis exactement, 
         }}
     ]
 }}
-3. **Contenu des questions** :
+3. Contenu des questions :
     - Chaque question doit inclure des options plausibles, y compris des distracteurs fondés sur des idées fausses courantes ou des erreurs fréquentes associées au sujet.
     - Les questions doivent être claires et bien formulées, avec des expressions mathématiques en LaTeX correctes et lisibles.
     - Les types de raisonnement doivent varier, comme l'application de formules ou l'interprétation de concepts.
     - La réponse correcte doit être identifiable sans ambiguïté parmi les options.
     
-4. **Aucune explication** : Vous ne devez pas inclure d’explications, uniquement la structure des questions telle que décrite ci-dessus just the json output.
+4. Aucune explication : Vous ne devez pas inclure d’explications, uniquement la structure des questions telle que décrite ci-dessus just the json output.
 
-### Informations spécifiques à fournir :
+5. N'utilisez pas de macros dans le code latex que vous fournirez.
+6. Assurez-vous que les questions que vous générez sont des questions QCM.
+
+Informations spécifiques à fournir :
 - **Nombre de questions à générer** : {}
 - **Niveau scolaire** : {}
 - **Matière** : {}
@@ -197,7 +208,7 @@ Veuillez noter que les exemples fournis ne doivent pas être suivis exactement, 
 - **Questions incorrectes à considérer** : {}
 - **Exemples d'exercices similaires aux questions incorrectes** : {}
 
-**Note importante** : 
-Pour générer les questions, vous devez prioriser les réponses incorrectes et vous appuyer sur les exercices similaires fournis.
+Note importante : 
+Pour générer les questions, vous devez donner la priorité aux réponses incorrectes et vous appuyer sur les exercices similaires fournis, tout en essayant de générer des questions différentes des réponses incorrectes mais ciblant la même compétence de base.
 """
 
